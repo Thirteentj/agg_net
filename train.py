@@ -1,4 +1,3 @@
-# from .models import ClassificationLoss, model_factory, save_model
 from utils import load_data
 from model import MLPClassifier, save_model
 from os import path
@@ -8,7 +7,7 @@ from torch.utils.tensorboard import SummaryWriter
 def train():
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     model = MLPClassifier().to(device)
-    epochs = 50
+    epochs = 250
     train_logger = SummaryWriter(path.join('./log', 'train'), flush_secs=1)
     """
     Your code here
@@ -16,6 +15,7 @@ def train():
     """
     data = load_data()
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    # optimizer = torch.optim.SGD(model.parameters(), lr=1e-3, momentum=0.9)
     loss_function = torch.nn.MSELoss()
     global_step = 0
     for epoch in range(epochs):

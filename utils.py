@@ -8,8 +8,11 @@ import csv
 
 class CMetricDataset(Dataset):
     def __init__(self):
-        self.data = np.load('observations.npy')
+        self.data = np.load('observations.npy')[2:, :, :]
         self.labels = np.load('labels.npy')
+        print(f'data shape: {self.data.shape}')
+        print(f'labels shape: {self.labels.shape}')
+
 
     def __len__(self):
         """
